@@ -1,41 +1,63 @@
+
 # 🖥️ Setup 0g-da-client di VPS Ubuntu
 
 ## 1️⃣ Persiapan VPS
-Pastikan VPS sudah siap dengan:
-- **Sistem operasi:** Ubuntu 20.04 / 22.04
-- **RAM minimal:** 4GB (disarankan 8GB)
-- **Paket dasar terinstal:** `curl`, `wget`, `git`, `tmux`, `screen`
+Pastikan VPS Anda telah siap dengan spesifikasi berikut:
+- **Sistem Operasi:** Ubuntu 20.04 / 22.04
+- **RAM Minimal:** 4GB (disarankan 8GB)
+- **Paket Dasar Terinstal:** `curl`, `wget`, `git`, `tmux`, `screen`
 
 ### 🔹 Update dan Install Paket Dasar
+Pertama, perbarui sistem dan install paket yang diperlukan:
 ```bash
 sudo apt update && sudo apt upgrade -y
 sudo apt install curl wget git tmux screen unzip -y
 ```
 
+Kemudian, download dan install Go:
+```bash
+wget https://go.dev/dl/go1.22.0.linux-amd64.tar.gz
+```
+
+Ekstrak arsip Go:
+```bash
+rm -rf /usr/local/go && tar -C /usr/local -xzf go1.22.0.linux-amd64.tar.gz
+```
+
+Tambahkan Go ke variabel PATH:
+```bash
+echo "export PATH=\$PATH:/usr/local/go/bin" >> ~/.profile
+source ~/.profile
+```
+
 ---
 
 ## 2️⃣ Download dan Install 0g-da-client
+Clone repository 0g-da-client dan masuk ke direktori proyek:
 ```bash
 cd /root
 git clone https://github.com/0glabs/0g-da-client.git
 cd 0g-da-client
 ```
-Install Dependencies**
-Pastikan Go dan Make sudah terinstal:
-```sh
+
+### 🔹 Install Dependencies
+Pastikan Go dan Make telah terinstal:
+```bash
 sudo apt install -y golang make
 ```
-Cek apakah Go sudah terinstal dengan:
-```sh
+
+Periksa apakah Go telah terinstal dengan:
+```bash
 go version
 ```
 
 ### 🔹 Build atau Download Binary
-Jika ingin membangun dari source:
+Untuk membangun dari source code:
 ```bash
 make build
 ```
-Atau gunakan binary yang sudah tersedia:
+
+Atau, Anda dapat menggunakan binary yang sudah tersedia:
 ```bash
 wget -O bin/combined https://your-binary-link
 chmod +x bin/combined
@@ -44,7 +66,7 @@ chmod +x bin/combined
 ---
 
 ## 3️⃣ Konfigurasi RPC & Private Key
-**Ubah nilai berikut sesuai kebutuhan:**
+Ubah nilai berikut sesuai kebutuhan Anda di file konfigurasi:
 ```bash
 RPC_URL="https://16600.rpc.thirdweb.com/"
 PRIVATE_KEY=""
@@ -54,17 +76,18 @@ KV_DB_PATH="/root/0g-da-client/run/"
 ---
 
 ## 4️⃣ Menjalankan 0g-da-client
-Gunakan **tmux** atau **screen** agar tetap berjalan setelah logout:
-Lalu jalankan command berikut:
+Untuk menjalankan aplikasi, disarankan menggunakan **tmux** atau **screen** agar tetap berjalan setelah logout.
+
+Jalankan command berikut:
 ```bash
-tmux new -s 0g-client "/root/0g-da-client/disperser/bin/combined \
+/root/0g-da-client/disperser/bin/combined \
     --chain.rpc https://16600.rpc.thirdweb.com/ \
-    --chain.private-key $GANTI_PK \
+    --chain.private-key $gantipk \
     --chain.receipt-wait-rounds 180 \
     --chain.receipt-wait-interval 1s \
     --chain.gas-limit 2000000 \
     --combined-server.use-memory-db \
-    --combined-server.storage.kv-db-path /root/0g-da-client/run/ \
+    --combined-server.storage.kv-db-path ./../run/ \
     --combined-server.storage.time-to-expire 2592000 \
     --disperser-server.grpc-port 51001 \
     --batcher.da-entrance-contract 0x857C0A28A8634614BB2C96039Cf4a20AFF709Aa9 \
@@ -86,11 +109,10 @@ tmux new -s 0g-client "/root/0g-da-client/disperser/bin/combined \
     --chain-write-timeout 13s \
     --combined-server.log.level-file trace \
     --combined-server.log.level-std trace \
-    --combined-server.log.path /root/0g-da-client/run/run.log
-
+    --combined-server.log.path ./../run/run.log
 ```
 
-Untuk keluar dari **tmux** tanpa menghentikan proses:
+Untuk keluar dari **tmux** tanpa menghentikan proses, tekan:
 ```bash
 CTRL + B, lalu tekan D
 ```
@@ -98,11 +120,12 @@ CTRL + B, lalu tekan D
 ---
 
 ## 5️⃣ Cek Status
-Cek apakah proses berjalan:
+Untuk mengecek apakah proses berjalan, gunakan:
 ```bash
 ps aux | grep 0g-da-client
 ```
-Jika ingin melihat log:
+
+Jika Anda ingin melihat log, jalankan:
 ```bash
 tail -f /root/0g-da-client/run/run.log
 ```
@@ -110,16 +133,16 @@ tail -f /root/0g-da-client/run/run.log
 ---
 
 ## 6️⃣ Menjalankan di Background (Opsional)
-Jika tidak ingin pakai **tmux**, jalankan dengan `nohup` agar tetap berjalan setelah logout:
+Jika Anda tidak ingin menggunakan **tmux**, Anda bisa menjalankan aplikasi dengan `nohup` agar tetap berjalan setelah logout:
 ```bash
 nohup /root/0g-da-client/bin/combined --chain.rpc $RPC_URL ... &> /root/0g-da-client/run.log &
 ```
 
-Cek apakah berjalan:
+Periksa apakah aplikasi berjalan:
 ```bash
 ps aux | grep 0g-da-client
 ```
 
 ---
 
-🎯 **Sekarang 0g-da-client seharusnya berjalan di VPS baru dengan aman!** 🚀
+🎯 **Sekarang 0g-da-client seharusnya berjalan di VPS Anda dengan aman!** 🚀
