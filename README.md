@@ -61,35 +61,36 @@ tmux new -s 0g-client
 Lalu jalankan command berikut:
 ```bash
 /root/0g-da-client/bin/combined \
-  --chain.rpc $RPC_URL \
-  --chain.private-key $PRIVATE_KEY \
-  --chain.receipt-wait-rounds 180 \
-  --chain.receipt-wait-interval 1s \
-  --chain.gas-limit 2000000 \
-  --combined-server.use-memory-db \
-  --combined-server.storage.kv-db-path $KV_DB_PATH \
-  --combined-server.storage.time-to-expire 2592000 \
-  --disperser-server.grpc-port 51001 \
-  --batcher.da-entrance-contract 0x857C0A28A8634614BB2C96039Cf4a20AFF709Aa9 \
-  --batcher.da-signers-contract 0x0000000000000000000000000000000000001000 \
-  --batcher.finalizer-interval 20s \
-  --batcher.confirmer-num 3 \
-  --batcher.max-num-retries-for-sign 3 \
-  --batcher.finalized-block-count 50 \
-  --batcher.batch-size-limit 500 \
-  --batcher.encoding-interval 3s \
-  --batcher.encoding-request-queue-size 1 \
-  --batcher.pull-interval 10s \
-  --batcher.signing-interval 3s \
-  --batcher.signed-pull-interval 20s \
-  --encoder-socket https://encoder.testnet.0g.ai \
-  --encoding-timeout 300s \
-  --signing-timeout 60s \
-  --chain-read-timeout 12s \
-  --chain-write-timeout 13s \
-  --combined-server.log.level-file trace \
-  --combined-server.log.level-std trace \
-  --combined-server.log.path /root/0g-da-client/run/run.log
+    --chain.rpc https://16600.rpc.thirdweb.com/ \
+    --chain.private-key $GANTI_PK \
+    --chain.receipt-wait-rounds 180 \
+    --chain.receipt-wait-interval 1s \
+    --chain.gas-limit 2000000 \
+    --combined-server.use-memory-db \
+    --combined-server.storage.kv-db-path /root/0g-da-client/run/ \
+    --combined-server.storage.time-to-expire 2592000 \
+    --disperser-server.grpc-port 51001 \
+    --batcher.da-entrance-contract 0x857C0A28A8634614BB2C96039Cf4a20AFF709Aa9 \
+    --batcher.da-signers-contract 0x0000000000000000000000000000000000001000 \
+    --batcher.finalizer-interval 20s \
+    --batcher.confirmer-num 3 \
+    --batcher.max-num-retries-for-sign 3 \
+    --batcher.finalized-block-count 50 \
+    --batcher.batch-size-limit 500 \
+    --batcher.encoding-interval 3s \
+    --batcher.encoding-request-queue-size 1 \
+    --batcher.pull-interval 10s \
+    --batcher.signing-interval 3s \
+    --batcher.signed-pull-interval 20s \
+    --encoder-socket https://encoder.testnet.0g.ai \
+    --encoding-timeout 300s \
+    --signing-timeout 60s \
+    --chain-read-timeout 12s \
+    --chain-write-timeout 13s \
+    --combined-server.log.level-file trace \
+    --combined-server.log.level-std trace \
+    --combined-server.log.path /root/0g-da-client/run/run.log
+
 ```
 
 Untuk keluar dari **tmux** tanpa menghentikan proses:
