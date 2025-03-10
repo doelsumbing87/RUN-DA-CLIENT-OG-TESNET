@@ -20,6 +20,15 @@ cd /root
 git clone https://github.com/0glabs/0g-da-client.git
 cd 0g-da-client
 ```
+Install Dependencies**
+Pastikan Go dan Make sudah terinstal:
+```sh
+sudo apt install -y golang make
+```
+Cek apakah Go sudah terinstal dengan:
+```sh
+go version
+```
 
 ### 🔹 Build atau Download Binary
 Jika ingin membangun dari source:
