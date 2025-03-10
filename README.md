@@ -55,12 +55,9 @@ KV_DB_PATH="/root/0g-da-client/run/"
 
 ## 4️⃣ Menjalankan 0g-da-client
 Gunakan **tmux** atau **screen** agar tetap berjalan setelah logout:
-```bash
-tmux new -s 0g-client
-```
 Lalu jalankan command berikut:
 ```bash
-/root/0g-da-client/bin/combined \
+tmux new -s 0g-client "/root/0g-da-client/disperser/bin/combined \
     --chain.rpc https://16600.rpc.thirdweb.com/ \
     --chain.private-key $GANTI_PK \
     --chain.receipt-wait-rounds 180 \
